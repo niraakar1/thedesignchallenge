@@ -27,6 +27,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
           <a routerLink="/mission" routerLinkActive="text-brand-orange" class="hover:text-brand-orange transition-colors duration-300">Our Mission</a>
           <a routerLink="/programs" routerLinkActive="text-brand-orange" class="hover:text-brand-orange transition-colors duration-300">Programs</a>
           <a routerLink="/impact" routerLinkActive="text-brand-orange" class="hover:text-brand-orange transition-colors duration-300">Impact</a>
+          <a routerLink="/blog" routerLinkActive="text-brand-orange" class="hover:text-brand-orange transition-colors duration-300">Blog</a>
         </nav>
 
         <!-- Mobile Menu Button -->
@@ -50,6 +51,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
           <a routerLink="/mission" (click)="toggleMenu()" class="block text-white hover:text-brand-orange text-lg">Our Mission</a>
           <a routerLink="/programs" (click)="toggleMenu()" class="block text-white hover:text-brand-orange text-lg">Programs</a>
           <a routerLink="/impact" (click)="toggleMenu()" class="block text-white hover:text-brand-orange text-lg">Impact</a>
+          <a routerLink="/blog" (click)="toggleMenu()" class="block text-white hover:text-brand-orange text-lg">Blog</a>
         </div>
       }
     </header>
