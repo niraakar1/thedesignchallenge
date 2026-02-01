@@ -60,10 +60,10 @@ import { FormsModule } from '@angular/forms';
                Digital Banners (Rendered)
             </h3>
             
-            <div class="flex flex-col xl:flex-row gap-12">
+            <div class="flex flex-col gap-12">
                 
                 <!-- LinkedIn Banner Render -->
-                <div class="flex-1 bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+                <div class="w-full bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
                     <div class="flex justify-between items-center mb-6">
                          <h4 class="font-bold text-brand-dark flex items-center gap-2">
                              <span class="w-2 h-8 bg-brand-teal rounded-full"></span>
@@ -93,7 +93,7 @@ import { FormsModule } from '@angular/forms';
                 </div>
 
                 <!-- Instagram Designer Section -->
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 w-full max-w-6xl mx-auto xl:mx-0">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 w-full">
                     <!-- Controls Header -->
                     <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
                         <h4 class="font-bold text-brand-dark flex items-center gap-2 text-xl">
@@ -414,26 +414,79 @@ import { FormsModule } from '@angular/forms';
             </div>
           </div>
 
-          <!-- Section: Email Footer -->
+          <!-- Section: Email Signatures -->
           <div class="mb-20">
              <h3 class="text-2xl font-bold text-brand-dark mb-6 flex items-center gap-3">
                <svg class="w-6 h-6 text-brand-lightTeal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-               Email Signature
+               Email Signatures
             </h3>
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-8 items-start">
-                <div class="flex-grow font-sans text-gray-800">
-                    <p class="font-bold text-lg text-brand-teal">Name Surname</p>
-                    <p class="text-sm text-gray-600 mb-2">Role | Design Challenge</p>
-                    <div class="w-10 h-0.5 bg-brand-orange mb-2"></div>
-                    <p class="text-xs text-gray-500">
-                        <strong>W:</strong> designchallenge.superscholar.io<br>
-                        <strong>E:</strong> hello@superscholar.io
-                    </p>
-                    <p class="text-[10px] text-gray-400 mt-2 italic">"Empowering youth to innovate for impact."</p>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                
+                <!-- Signature 1: Ajay Yadav -->
+                <div class="relative overflow-hidden rounded-2xl shadow-lg group">
+                    <!-- Background -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-brand-orange to-[#FF4500]"></div>
+                    <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                    
+                    <div class="relative p-8 text-white flex flex-col h-full justify-between">
+                         <div class="flex items-start justify-between mb-8">
+                             <div>
+                                 <h2 class="text-3xl font-bold mb-1">Ajay Yadav</h2>
+                                 <p class="text-orange-100 font-medium tracking-wide">Lead Facilitator</p>
+                             </div>
+                             <!-- Logo -->
+                             <div class="bg-white text-brand-orange p-3 rounded-xl shadow-md transform rotate-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                                </svg>
+                             </div>
+                         </div>
+                         
+                         <div class="space-y-3 text-sm">
+                             <div class="w-12 h-1 bg-white/30 rounded-full mb-4"></div>
+                             <p class="font-bold text-lg">Design Challenge</p>
+                             <div class="flex flex-col gap-1 opacity-90 font-light">
+                                <a href="https://designchallenge.superscholar.io" class="hover:underline">designchallenge.superscholar.io</a>
+                                <a href="mailto:designchallenge@superscholar.io" class="hover:underline">designchallenge@superscholar.io</a>
+                                <span>+977 981-8509607</span>
+                             </div>
+                         </div>
+                    </div>
                 </div>
-                <button class="bg-gray-100 hover:bg-gray-200 text-gray-600 px-6 py-2 rounded-lg font-bold text-sm transition-colors flex-shrink-0">
-                    Copy HTML
-                </button>
+
+                <!-- Signature 2: Abbal Dhakal -->
+                <div class="relative overflow-hidden rounded-2xl shadow-lg group">
+                    <!-- Background -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-brand-orange to-[#FF4500]"></div>
+                    <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+
+                    <div class="relative p-8 text-white flex flex-col h-full justify-between">
+                         <div class="flex items-start justify-between mb-8">
+                             <div>
+                                 <h2 class="text-3xl font-bold mb-1">Abbal Dhakal</h2>
+                                 <p class="text-orange-100 font-medium tracking-wide">Operations Incharge</p>
+                             </div>
+                             <!-- Logo -->
+                             <div class="bg-white text-brand-orange p-3 rounded-xl shadow-md transform -rotate-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                                </svg>
+                             </div>
+                         </div>
+                         
+                         <div class="space-y-3 text-sm">
+                             <div class="w-12 h-1 bg-white/30 rounded-full mb-4"></div>
+                             <p class="font-bold text-lg">Design Challenge</p>
+                             <div class="flex flex-col gap-1 opacity-90 font-light">
+                                <a href="https://designchallenge.superscholar.io" class="hover:underline">designchallenge.superscholar.io</a>
+                                <a href="mailto:designchallenge@superscholar.io" class="hover:underline">designchallenge@superscholar.io</a>
+                                <span>+977 970-5301030</span>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+
             </div>
           </div>
           
