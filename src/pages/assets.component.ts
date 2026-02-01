@@ -489,6 +489,79 @@ import { FormsModule } from '@angular/forms';
 
             </div>
           </div>
+
+          <!-- Section: Print Brochures -->
+          <div class="mb-20">
+             <h3 class="text-2xl font-bold text-brand-dark mb-6 flex items-center gap-3">
+               <svg class="w-6 h-6 text-brand-lightTeal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+               Print & PDF Brochures
+            </h3>
+            
+            <div class="grid xl:grid-cols-3 gap-8">
+                @for (brochure of brochures; track brochure.title; let i = $index) {
+                    <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100 flex flex-col">
+                        <!-- Header / Cover -->
+                        <div [class]="'p-6 text-white relative overflow-hidden ' + brochure.color">
+                             <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                             <h3 class="text-xl font-bold relative z-10 mb-1">{{ brochure.title }}</h3>
+                             <p class="text-xs font-medium uppercase tracking-wider opacity-80 relative z-10">{{ brochure.subtitle }}</p>
+                        </div>
+
+                        <!-- Tabs -->
+                        <div class="flex border-b border-gray-100">
+                             <button (click)="setActiveTab(i, 0)" [class]="'flex-1 py-3 text-xs font-bold uppercase tracking-wide transition-colors ' + (activeBrochureTab[i] === 0 ? 'text-brand-dark bg-gray-50 border-b-2 border-brand-orange' : 'text-gray-400 hover:text-gray-600')">Front</button>
+                             <button (click)="setActiveTab(i, 1)" [class]="'flex-1 py-3 text-xs font-bold uppercase tracking-wide transition-colors ' + (activeBrochureTab[i] === 1 ? 'text-brand-dark bg-gray-50 border-b-2 border-brand-orange' : 'text-gray-400 hover:text-gray-600')">Inside</button>
+                             <button (click)="setActiveTab(i, 2)" [class]="'flex-1 py-3 text-xs font-bold uppercase tracking-wide transition-colors ' + (activeBrochureTab[i] === 2 ? 'text-brand-dark bg-gray-50 border-b-2 border-brand-orange' : 'text-gray-400 hover:text-gray-600')">Back</button>
+                        </div>
+
+                        <!-- Content Area -->
+                        <div class="p-6 h-96 overflow-y-auto text-sm leading-relaxed text-gray-600 custom-scrollbar">
+                             <!-- Front -->
+                             @if (activeBrochureTab[i] === 0) {
+                                 <div class="animate-fade-in">
+                                     @for (section of brochure.front; track section.heading) {
+                                         <div class="mb-5 last:mb-0">
+                                             <h4 class="font-bold text-brand-dark mb-2 text-sm">{{ section.heading }}</h4>
+                                             <div [innerHTML]="section.text"></div>
+                                         </div>
+                                     }
+                                 </div>
+                             }
+                             <!-- Inside -->
+                             @if (activeBrochureTab[i] === 1) {
+                                 <div class="animate-fade-in">
+                                     @for (section of brochure.inside; track section.heading) {
+                                         <div class="mb-5 last:mb-0 bg-gray-50 p-4 rounded-xl border border-gray-100">
+                                             <h4 class="font-bold text-brand-teal mb-1 text-sm">{{ section.heading }}</h4>
+                                             <div class="text-xs" [innerHTML]="section.text"></div>
+                                         </div>
+                                     }
+                                 </div>
+                             }
+                             <!-- Back -->
+                             @if (activeBrochureTab[i] === 2) {
+                                 <div class="animate-fade-in">
+                                     @for (section of brochure.back; track section.heading) {
+                                         <div class="mb-5 last:mb-0">
+                                             <h4 class="font-bold text-brand-orange mb-2 text-sm">{{ section.heading }}</h4>
+                                             <div [innerHTML]="section.text"></div>
+                                         </div>
+                                     }
+                                 </div>
+                             }
+                        </div>
+                        
+                        <!-- Footer Action -->
+                        <div class="p-4 border-t border-gray-100 bg-gray-50 text-center">
+                            <button class="text-brand-teal text-xs font-bold hover:underline flex items-center justify-center gap-1 w-full">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                                Download PDF
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+          </div>
           
            <!-- Bottom CTA -->
            <div class="bg-brand-teal rounded-[2.5rem] p-12 text-center text-white relative overflow-hidden mb-12">
@@ -511,6 +584,20 @@ import { FormsModule } from '@angular/forms';
     }
     .animate-fade-in {
         animation: fade-in 0.6s ease-out forwards;
+    }
+    /* Simple Custom Scrollbar for brochure content */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #ddd;
+        border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #bbb;
     }
   `],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -535,6 +622,102 @@ export class AssetsComponent {
       'https://picsum.photos/id/119/800/800',
       'https://picsum.photos/id/20/800/800'
   ];
+
+  // Brochure Tabs State (using index: tabIndex)
+  activeBrochureTab: Record<number, number> = { 0: 0, 1: 0, 2: 0, 3: 0 };
+
+  brochures = [
+      {
+          title: 'Basic Info Brochure',
+          subtitle: 'Empowering Next-Gen Problem Solvers',
+          color: 'bg-brand-teal',
+          front: [
+              { heading: 'Who We Are', text: 'Young Change Agents is a social enterprise dedicated to developing the mindset, skillset, and toolset of youth aged 10–21. We empower young people to identify problems, reframe them as opportunities, and design solutions with an entrepreneurial lens.' },
+              { heading: 'Our Philosophy', text: 'We believe that the skills of problem-solving—such as critical thinking, creativity, and resilience—are essential for all young people, regardless of their eventual career path.' },
+              { heading: 'Social Impact', text: 'Our programs focus on social entrepreneurship, teaching youth to solve social or environmental problems while aligning with the UN Sustainable Development Goals.' }
+          ],
+          inside: [
+              { heading: 'The Spark (90 Minutes)', text: 'A high-energy introduction to the “How Might We?” framework, igniting curiosity and teaching participants to reframe surmountable challenges as opportunities.' },
+              { heading: 'The Explorer (1 Day)', text: 'An immersive workshop focused on human-centered design where participants use the phases of Empathize, Define, Ideate, Prototype, and Test to design a validated solution.' },
+              { heading: 'The Innovator (2 Days)', text: 'A "sandpit" for iterative prototyping and assumption testing using tools like the Javelin Board, emphasizing the value of “flearning” (learning from failure).' },
+              { heading: 'The Changemaker (3 Days)', text: 'A comprehensive execution sprint covering project management, risk assessment, and business modeling to prepare a project for real-world impact.' }
+          ],
+          back: [
+              { heading: 'The Entrepreneurial Learning Hub', text: 'A digital platform where students document their progress, capture natural evidence of learning, and earn digital badges.' },
+              { heading: 'Community Connections', text: 'We bridge the gap between youth and industry by bringing mentors and guest speakers into the learning process.' },
+              { heading: 'Contact', text: 'Reach us at hello@youngchangeagents.com or visit www.youngchangeagents.com.' }
+          ]
+      },
+      {
+          title: 'School Info Packet',
+          subtitle: 'Building an Entrepreneurial Culture',
+          color: 'bg-brand-orange',
+          front: [
+              { heading: 'The 4-Pillar Model', text: 'We support schools in building an ecosystem of support, internal capacity, learning pathways, and amplification of student work.' },
+              { heading: 'Why EE Matters for Schools', text: 'Integrating this mindset enhances student engagement, improves teacher professional satisfaction, and helps meet the goals of School Improvement Plans.' },
+              { heading: 'Support Provided', text: 'Participating schools receive principal coaching, quarterly leadership forums, and practical professional development for educators.' }
+          ],
+          inside: [
+              { heading: 'The Playbook', text: 'Access our free, comprehensive guide featuring practical strategies, case studies, and templates to embed entrepreneurial thinking across all subjects.' },
+              { heading: 'Curriculum Alignment', text: 'Our programs are mapped to the Australian Curriculum (Version 9), supporting General Capabilities like Critical and Creative Thinking and Learning Areas such as HASS and Technologies.' },
+              { heading: 'The Classroom', text: 'Teachers use a notification center to review submissions, provide real-time feedback, and award achievement badges.' },
+              { heading: 'Inclusive Access', text: 'We offer tailored resources for Indigenous youth (Lighting the Spark), girls (Academy for Enterprising Girls), and students with disabilities to ensure equitable access.' }
+          ],
+          back: [
+              { heading: 'Global Credential', text: 'Developed with the University of Melbourne, this tool measures 13 capabilities including agency, collaboration, and financial wellbeing.' },
+              { heading: 'Digital Portfolios', text: 'Students build a verified ePortfolio of digital badges that can be shared with parents, employers, and universities.' },
+              { heading: 'Milestone Moments', text: 'We encourage schools to celebrate success through market days, pitch nights, and student showcases.' }
+          ]
+      },
+      {
+          title: 'Global Impact Report',
+          subtitle: 'Scaling Impact for 2030',
+          color: 'bg-brand-dark',
+          front: [
+              { heading: 'Our Reach (2016–2024)', text: 'We have empowered 171,049+ young people, trained 3,022+ educators, and partnered with 1,578+ schools.' },
+              { heading: 'The 2030 Mission', text: 'Our goal is to ensure early and equitable access to these skills for 2 million young people by 2030.' },
+              { heading: 'Systemic Success', text: 'Research shows a 55% increase in educators\' understanding of how to teach entrepreneurial thinking after just one day of professional development.' }
+          ],
+          inside: [
+              { heading: 'Problem Solving & Agency', text: 'Students move from feeling helpless about global issues like climate change to believing they can genuinely make an impact.' },
+              { heading: 'Future Readiness', text: 'Our programs address the skills gap by developing the top 10 skills employees need by 2030, including active learning, emotional intelligence, and complex problem-solving.' },
+              { heading: 'Economic Contribution', text: 'By teaching youth to be job-makers rather than just job-seekers, we help address youth unemployment and foster a robust digital economy.' },
+              { heading: 'Health & Wellbeing', text: 'Entrepreneurial learning builds resilience and self-esteem, reducing isolation through social connections and purposeful action.' }
+          ],
+          back: [
+              { heading: 'Lighting the Spark', text: 'Over 1,000 Indigenous participants have engaged with our community-led programs that connect business ideas to identity and culture.' },
+              { heading: 'Diversifying Participation', text: 'Our initiatives for students with disabilities have demonstrated that unique lived experiences are a powerful source of innovation.' },
+              { heading: 'National Flagships', text: 'Schools participating in the ASPA partnership serve as national models for student voice and innovation.' },
+              { heading: 'Advocacy', text: 'We continue to advocate for a state-wide future where entrepreneurship is a priority championed by government on the same level as literacy and numeracy.' }
+          ]
+      },
+      {
+          title: 'Partnership Ecosystem',
+          subtitle: 'Collaborative Success & Impact',
+          color: 'bg-brand-dark',
+          front: [
+              { heading: 'The Ecosystem', text: 'To accommodate and amplify the achievements of partners—including schools, industry leaders, and community groups—the program is framed as a <strong>collaborative ecosystem</strong> where collective success is celebrated through shared storytelling and validated impact.' },
+              { heading: 'Mission Statement', text: 'Our mission is to ensure <strong>early and equitable access</strong> to skills for social impact, empowering every young person to develop a <strong>problem-solving mindset</strong> and a toolkit for innovation. We work in <strong>reciprocal partnership</strong> with educators, industry experts, and communities to transform challenges into opportunities, building a national network of <strong>flagship sites</strong> where the collective achievements of youth and their supporters are amplified and celebrated.' }
+          ],
+          inside: [
+              { heading: 'Reciprocity in Partnership', text: 'We believe long-term relationships are built on <strong>mutual benefit</strong>, ensuring that our partners’ contributions—whether through mentorship, funding, or co-design—result in visible, positive shifts in their own organizational culture and community standing.' },
+              { heading: 'Human-Centered Design Thinking', text: 'The program utilizes an iterative process—<strong>Empathise, Define, Ideate, Prototype, and Test</strong>—to solve real-world problems.' },
+              { heading: 'Fostering Student and Partner Agency', text: 'We empower youth to lead while giving partners a <strong>voice in the co-creation</strong> of learning experiences, ensuring projects are relevant to local industry and community needs.' },
+              { heading: 'Flearning (Learning through Failure)', text: 'We create a safe "sandpit" environment where setbacks are reframed as <strong>valuable evidence of learning</strong>, allowing both students and partners to innovate without fear.' },
+              { heading: 'Evidence-Based Amplification', text: 'We utilize a robust <strong>Impact Measurement Framework</strong> to track progress across 13 capabilities, providing partners with the data and case studies needed to showcase their contribution to systemic change.' }
+          ],
+          back: [
+              { heading: 'Middle School: The Spark (90 Minutes)', text: '<strong>Focus:</strong> Igniting curiosity through community-aligned design challenges.<br><strong>Scope:</strong> Students use the <strong>“How Might We?”</strong> lens to tackle immediate issues. We invite local community partners to provide the initial "spark" by sharing a real-life challenge, allowing them to see their priorities reframed through the <strong>fresh perspectives</strong> of creative young minds.' },
+              { heading: 'High School: The Explorer (1 Day)', text: '<strong>Focus:</strong> Passion-led problem definition and collaborative ideation.<br><strong>Scope:</strong> This immersive workshop identifies local or global issues for <strong>social impact</strong>. Partners serve as <strong>"Discovery Mentors,"</strong> sharing their professional journeys and witnessing firsthand how students apply <strong>collective intelligence</strong> to solve problems relevant to the partner’s sector.' },
+              { heading: 'College/University: The Innovator (2 Days)', text: '<strong>Focus:</strong> Validation, iterative prototyping, and workforce readiness.<br><strong>Scope:</strong> Operating as a <strong>Youth Incubator</strong>, this program allows students to test their <strong>riskiest assumptions</strong> using the Javelin Board. Tertiary partners and industry experts act as <strong>Co-agents of learning</strong>, providing "in-the-moment" feedback that helps students iterate toward <strong>product-market fit</strong> while building the partner’s pipeline of innovative talent.' },
+              { heading: 'Organizations: The Changemaker (3 Days)', text: '<strong>Focus:</strong> Systemic impact, risk management, and intrapreneurship.<br><strong>Scope:</strong> This comprehensive sprint prepares participants to launch <strong>social enterprise models</strong> or internal innovation projects. We partner with organizations to <strong>co-design a roadmap for execution</strong>, measuring success against the <strong>UN Sustainable Development Goals</strong>. The achievement culminates in a <strong>“Milestone Moment”</strong> showcase, where the partner organization’s leadership is celebrated as a <strong>champion of social change</strong>.' }
+          ]
+      }
+  ];
+
+  setActiveTab(brochureIndex: number, tabIndex: number) {
+      this.activeBrochureTab[brochureIndex] = tabIndex;
+  }
 
   parsedText = computed(() => {
     const text = this.instaText();
